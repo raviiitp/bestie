@@ -12,8 +12,10 @@
     <title>Bestie - the best among all</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="bower_components/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="bower_components/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    
+    <link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="assets/css/bestie.css" rel="stylesheet">
@@ -25,42 +27,27 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <!--<base href="/">-->
+    <base href="/">
     
 </head>
 
-<body>
-test
+<body ng-cloak class="ng-cloak">
+
     <div ui-view="navbar" autoscroll="true" ></div>
     <div ui-view="content"></div>
-    
-    <div class="container">
-
-        <hr>
-
-        <!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; Bestie 2014</p>
-                </div>
-            </div>
-        </footer>
-
-    </div>
-    <!-- /.container -->
+    <div ui-view="footer"></div>
 
     <!-- jQuery -->
-    <script src="bower_components/jquery/jquery.min.js" type="text/javascript"></script>
+    <script src="/bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="bower_components/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
     
     <!-- AngularJs -->
     <script src="bower_components/angular/angular.min.js" type="text/javascript"></script>
     
     <!-- Angular-ui-router -->
-    <script src="bower_components/angular-ui-router/angular-ui-router.min.js" type="text/javascript"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js" type="text/javascript"></script>
     
     <!-- scripts -->
     <script src="scripts/app/app.js" type="text/javascript"></script>
