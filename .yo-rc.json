@@ -1,0 +1,20 @@
+{
+  "generator-jhipster": {
+    "baseName": "shoptell",
+    "packageName": "com.shoptell",
+    "packageFolder": "com/shoptell",
+    "authenticationType": "session",
+    "hibernateCache": "no",
+    "clusteredHttpSession": "no",
+    "websocket": "no",
+    "databaseType": "sql",
+    "devDatabaseType": "postgresql",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": "no",
+    "useCompass": false,
+    "buildTool": "maven",
+    "frontendBuilder": "grunt",
+    "javaVersion": "8",
+    "rememberMeKey": "3c75d563a47a9f016647b98b7404c1259e539e42"
+  }
+}
