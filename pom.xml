@@ -129,7 +129,6 @@
         <dependency>
             <groupId>com.jayway.jsonpath</groupId>
             <artifactId>json-path</artifactId>
-            <version>${json-path.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -178,7 +177,6 @@
         <dependency>
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
-            <version>${HikariCP.version}</version>
             <exclusions>
                 <exclusion>
                     <artifactId>tools</artifactId>
@@ -245,7 +243,6 @@
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
-            <version>${liquibase.version}</version>
             <exclusions>
                 <exclusion>
                     <artifactId>jetty-servlet</artifactId>
@@ -274,13 +271,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>
-            <version>${spring-boot.version}</version>
-        </dependency>
+            </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-loader-tools</artifactId>
-            <version>${spring-boot.version}</version>
-        </dependency>
+            </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
@@ -337,8 +332,7 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-data</artifactId>
-            <version>${spring-security.version}</version>
-        </dependency>
+            </dependency>
         <!-- reporting -->
         <dependency>
             <groupId>fr.ippon.spark.metrics</groupId>
