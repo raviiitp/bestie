@@ -14,7 +14,7 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
 
     Optional<Company> findOneByCatId(String catId);
 
-    List<Company> findByPCatId(String pCatId);
+    List<Company> findAllByPCatId(String pCatId);
 
     @Override
     void delete(Company company);

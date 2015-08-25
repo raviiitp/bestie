@@ -60,7 +60,7 @@ public class CompanyResource {
     @Timed
     ResponseEntity<List<Company>> getChildrenCompanies(@PathVariable String pCatId) {
         log.debug("REST request to get children of pCategory : {}", pCatId);
-        List<Company> childrenCompanies = companyRepository.findByPCatId(pCatId);
+        List<Company> childrenCompanies = companyRepository.findAllByPCatId(pCatId);
         if(childrenCompanies != null){
         	return (new ResponseEntity<>(childrenCompanies, HttpStatus.OK));
         }else{

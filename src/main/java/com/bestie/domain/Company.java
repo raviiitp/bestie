@@ -1,42 +1,57 @@
 package com.bestie.domain;
 
 import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 /**
- * A user.
+ * A company.
  */
 @Entity
-@Table(name = "JHI_Company")
+@Table(name = "JHI_COMPANY")
 public class Company extends AbstractAuditingEntity implements Serializable {
 
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
 
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="id")
     private Long id;
-
+	
+	@Column(name="icon_link")
 	private String iconLink;
-	
+
+	@Column(name="name")
 	private String name;
-	
+
+	@Column(name="web_link")
 	private String webLink;
-	
+
+	@Column(name="play_link")
 	private String playLink;
+	
+	@Column(name="apple_link")
 	private String appleLink;
+	
+	@Column(name="ms_link")
 	private String msLink;
 	//@Id
-    @Column(unique = true, nullable = false)
+	@NotNull
+    @Column(name="cat_id", unique = true, nullable = false)
 	private String catId;
+	
+	@Column(name="p_cat_id")
 	private String pCatId;
+	
+	@Column(name="info")
 	private String info;
 
 

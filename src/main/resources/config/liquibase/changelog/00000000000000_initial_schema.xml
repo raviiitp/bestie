@@ -167,6 +167,40 @@
                                  constraintName="FK_event_persistent_audit_event_data"
                                  referencedColumnNames="event_id"
                                  referencedTableName="JHI_PERSISTENT_AUDIT_EVENT"/>
+          
+    </changeSet>
+    
+    <changeSet id="01000000000001" author="ravi">
+    <createTable tableName="JHI_COMPANY">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="icon_link" type="text"/>
+            <column name="name" type="text"/>
+            <column name="web_link" type="text"/>
+            <column name="play_link" type="text"/>
+            <column name="apple_link" type="text"/>
+            <column name="ms_link" type="text"/>
+            <column name="cat_id" type="text">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="p_cat_id" type="text"/>
+            <column name="info" type="text"/>
+        </createTable>
+        
+        <createIndex indexName="idx_company_catId"
+            tableName="JHI_COMPANY"
+            unique="true">
+            <column name="cat_id" type="text"/>
+        </createIndex>
+    </changeSet>
+    
+    <changeSet id="01000000000002" author="ravi">
+            <loadData encoding="UTF-8"
+                  file="config/liquibase/companies.csv"
+                  separator=";"
+                  tableName="JHI_COMPANY">
+            </loadData>
     </changeSet>
     
 </databaseChangeLog>
