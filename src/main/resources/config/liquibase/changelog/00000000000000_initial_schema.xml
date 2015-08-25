@@ -196,10 +196,11 @@
     </changeSet>
     
     <changeSet id="01000000000002" author="ravi">
-            <loadData encoding="UTF-8"
-                  file="config/liquibase/companies.csv"
-                  separator=";"
-                  tableName="JHI_COMPANY">
+            <loadData 
+            	encoding="UTF-8"
+                file="config/liquibase/companies.csv"
+                separator=";"
+                tableName="JHI_COMPANY">
             </loadData>
     </changeSet>
     
