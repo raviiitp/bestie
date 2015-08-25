@@ -194,7 +194,7 @@
             <column name="cat_id" type="text"/>
         </createIndex>
     </changeSet>
-    
+    <!-- 
     <changeSet id="01000000000002" author="ravi">
             <loadData 
             	encoding="UTF-8"
@@ -203,5 +203,6 @@
                 tableName="JHI_COMPANY">
             </loadData>
     </changeSet>
+    -->
     
 </databaseChangeLog>

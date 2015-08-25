@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name = "JHI_COMPANY")
-public class Company extends AbstractAuditingEntity implements Serializable {
+public class Company implements Serializable {
 
     /**
 	 * 
