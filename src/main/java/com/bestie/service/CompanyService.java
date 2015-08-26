@@ -1,5 +1,8 @@
 package com.bestie.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -31,5 +34,16 @@ public class CompanyService {
     	company.setpCatId(companyDTO.getpCatId());
     	company.setInfo(companyDTO.getInfo());
     	companyRepository.save(company);
+	}
+	
+	public List<Company> getAllByCatId(String catId){
+		List<Company> companyList = null;
+		Company requestedCompany = companyRepository.findByCatId(catId);
+		if(requestedCompany != null){
+			companyList = new ArrayList<Company>();
+			companyList = companyRepository.findAllByPCatId(requestedCompany.getpCatId());
+			companyList.add(0, requestedCompany);
+		}
+		return companyList;
 	}
 }

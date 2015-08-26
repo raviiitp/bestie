@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,7 +27,7 @@ import com.codahale.metrics.annotation.Timed;
  * REST controller for managing company info.
  */
 @RestController
-@RequestMapping("/company")
+@RequestMapping("/")
 public class CompanyResource {
 
     private final Logger log = LoggerFactory.getLogger(CompanyResource.class);
@@ -39,48 +38,55 @@ public class CompanyResource {
     @Inject
     private CompanyService companyService;
     
+    @RequestMapping(value= "companyList",
+    		method = RequestMethod.GET,
+    		produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<?>getAll(){
+    	List<Company> companyList = companyRepository.findAll();
+    	if(companyList != null){
+    		return new ResponseEntity<>(companyList, HttpStatus.OK);
+    	}else{
+    		return (new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    	}
+    }
+    
     /**
-     * GET  /:catId -> get the info of catId.
+     * GET http://localhost:8080/company?tag=ct&id=friends -> get the info of catId.
+     * GET http://localhost:8080/company?tag=ch&id=SocialNetworking
      */
-    @RequestMapping(value = "/{catId}",
+    @RequestMapping(value = "company",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    ResponseEntity<Company> getCompany(@PathVariable String catId) {
-        log.debug("REST request to get Category : {}", catId);
-/*        return companyRepository.findByCatId(catId)
-                .map(company -> new ResponseEntity<>(company, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));*/
-        Company company = companyRepository.findByCatId(catId);
-        if(company == null){
-        	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    ResponseEntity<?> getCompany(@RequestParam String tag, String id) {
+        log.debug("REST request to get Category : {}", tag + " " + id);
+        if(tag.equals("ct")){
+        	log.debug("catId is called");
+        	//List<Company> companyList = companyService.getAllByCatId(id);
+        	Company company = companyRepository.findByCatId(id);
+            if(company == null){
+            	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            else{
+            	return new ResponseEntity<>(company, HttpStatus.OK);
+            }
         }
-        else{
-        	return new ResponseEntity<>(company, HttpStatus.OK);
+        else if(tag.equals("ch")){
+        	log.debug("pCatId is called");
+        	List<Company> childrenCompanies = companyRepository.findAllByPCatId(id);
+            if(childrenCompanies != null){
+            	return (new ResponseEntity<>(childrenCompanies, HttpStatus.OK));
+            }else{
+            	return (new ResponseEntity<>(HttpStatus.NOT_FOUND));
+            }
         }
+        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
     
     /**
-     *  GET	/:pCatId -> get all children of a parent category id (pCatId).
+     * POST  /insertCompany -> insert/update the company.
      */
-    @RequestMapping(value = "/{pCatId}",
-    		method = RequestMethod.GET,
-    		produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    ResponseEntity<List<Company>> getChildrenCompanies(@PathVariable String pCatId) {
-        log.debug("REST request to get children of pCategory : {}", pCatId);
-        List<Company> childrenCompanies = companyRepository.findAllByPCatId(pCatId);
-        if(childrenCompanies != null){
-        	return (new ResponseEntity<>(childrenCompanies, HttpStatus.OK));
-        }else{
-        	return (new ResponseEntity<>(HttpStatus.NOT_FOUND));
-        }
-    }
-    
-    /**
-     * POST  /register -> insert/update the company.
-     */
-    @RequestMapping(value = "/insertCompany",
+    @RequestMapping(value = "company/insertCompany",
             method = RequestMethod.POST,
             produces = MediaType.TEXT_PLAIN_VALUE)
     @Timed
@@ -98,30 +104,7 @@ public class CompanyResource {
     	return new ResponseEntity<>(HttpStatus.CREATED);
     }
     
-    /**
-     * GET  /:catId -> get the info of catId.
-     */
-    @RequestMapping(value = "/",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    ResponseEntity<Company> getCompany(@RequestParam String tag, String catId) {
-        log.debug("REST request to get Category : {}", tag + " " + catId);
-        if(tag.equals("catId")){
-        	log.debug("catId is called");
-        }
-        else if(tag.equals("pCatId")){
-        	log.debug("pCatId is called");
-        }
-/*        return companyRepository.findByCatId(catId)
-                .map(company -> new ResponseEntity<>(company, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));*/
-        Company company = companyRepository.findByCatId(catId);
-        if(company == null){
-        	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        else{
-        	return new ResponseEntity<>(company, HttpStatus.OK);
-        }
-    }
+
+    
+
 }

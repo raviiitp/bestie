@@ -12,7 +12,7 @@ angular.module('bestie')
                 views: {
                     'content@': {
                         templateUrl: '/scripts/app/partials/homePage/homePage.html',
-                        //controller: 'HomePageController'
+                        controller: 'homePageCtrl'
                     }
                 },
                 resolve: {

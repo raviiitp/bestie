@@ -1,22 +1,49 @@
     <!-- Page Content -->
     <div class="container">
 
+        <p class="lead">Bestie</p>
         <div class="row">
 
             <div class="col-md-3">
-                <p class="lead">Bestie</p>
-                <div class="list-group">
-                    <a href="#" class="list-group-item">Category 1</a>
-                    <a href="#" class="list-group-item">Category 2</a>
-                    <a href="#" class="list-group-item">Category 3</a>
+                <div class="list-group" ng-repeat="company in companyList">
+                    <a href="#" class="list-group-item" ng-click="getChildren(company.pCatId)">{{company.pCatId}}</a>
                 </div>
             </div>
 
-            <div class="col-md-9">
+            <div class="col-md-3">
 
+                <div class="list-group" ng-repeat="child in childrenCompany">
+                    <a href="#" class="list-group-item" ng-click="getCompany(child.catId)">{{child.catId}}</a>
+                </div>
+            </div>
+
+            <div class= "col-md-6">
+                <div ng-show="showCompany" >
+                    <img ng-src="{{company.iconLink}}" />
+                    <a href="{{company.webLink}}"  >{{company.name}}</a>
+                    <p>Get this app @</p>
+                    <div class="list-group">
+                        <a href="{{company.playLink}}" class="list-group-item">Google Play</a>
+                        <a href="{{company.appleLink}}" class="list-group-item">Apple Store</a>
+                        <a href="{{company.msLink}}" class="list-group-item">Microsoft Store</a>
+                    </div>
+                </div>
             </div>
 
         </div>
+        <form ng-submit="saveCompany(newCompany)">
+            <p>Enter text and hit enter:</p>
+            <input type="text" ng-model="newCompany.name" name="name" placeholder="name"/>
+            <input type="text" ng-model="newCompany.iconLink" name="iconLink" placeholder="icon link"/>
+            <input type="text" ng-model="newCompany.webLink" name="webLink" placeholder="web link"/>
+            <input type="text" ng-model="newCompany.playLink" name="playLink" placeholder="Google Play link"/>
+            <input type="text" ng-model="newCompany.appleLink" name="appleLink" placeholder="Apple Store link"/>
+            <input type="text" ng-model="newCompany.msLink" name="msLink" placeholder="Microsoft Store link"/>
+            <input type="text" ng-model="newCompany.catId" name="catId" placeholder="category"/>
+            <input type="text" ng-model="newCompany.pCatId" name="pCatId" placeholder="parent"/>
+            <input type="text" ng-model="newCompany.info" name="info" placeholder="info"/>
+            <input type="submit" id="submit" value="Submit" />
+        </form>
 
     </div>
     <!-- /.container -->

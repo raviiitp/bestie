@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('bestie', ['ui.router'])
+angular.module('bestie', ['ui.router', 'ngResource'])
 .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
 
 		//enable CSRF
