@@ -19,8 +19,12 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
     List<Company> findAllByPCatId(String pCatId);
     
     List<Company> findAll();
+    
+    @Query("select DISTINCT c.pCatId from Company c")
+    List<String> findDistinctPCatId();
 
     @Override
     void delete(Company company);
+    
 
 }

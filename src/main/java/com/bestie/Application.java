@@ -1,16 +1,20 @@
 package com.bestie;
 
+import net.sf.saxon.expr.instruct.ForEach;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.autoconfigure.MetricFilterAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.MetricRepositoryAutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.SimpleCommandLinePropertySource;
 
 import com.bestie.config.Constants;
+import com.bestie.repository.CompanyRepository;
 import com.google.common.base.Joiner;
 
 import javax.annotation.PostConstruct;
@@ -21,6 +25,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 @ComponentScan
 @EnableAutoConfiguration(exclude = {MetricFilterAutoConfiguration.class, MetricRepositoryAutoConfiguration.class})
@@ -30,6 +35,7 @@ public class Application {
 
     @Inject
     private Environment env;
+    
 
     /**
      * Initializes shoptell.
@@ -71,7 +77,8 @@ public class Application {
         SimpleCommandLinePropertySource source = new SimpleCommandLinePropertySource(args);
         addDefaultProfile(app, source);
         addLiquibaseScanPackages();
-        Environment env = app.run(args).getEnvironment();
+        ApplicationContext ctx = app.run(args);
+        Environment env = ctx.getEnvironment();
         log.info("Access URLs:\n----------------------------------------------------------\n\t" +
             "Local: \t\thttp://127.0.0.1:{}\n\t" +
             "External: \thttp://{}:{}\n----------------------------------------------------------",
@@ -79,6 +86,16 @@ public class Application {
             InetAddress.getLocalHost().getHostAddress(),
             env.getProperty("server.port"));
 
+        CompanyRepository companyRepository = (CompanyRepository) ctx
+		.getBean("companyRepository");
+        List<String> pCatId_str = companyRepository.findDistinctPCatId();
+        if(pCatId_str != null){
+        	for(int i = 0; i< pCatId_str.size(); i++){
+        		log.debug(pCatId_str.get(i));
+        	}
+        }else{
+        	log.debug("pCatId_str is null");
+        }
     }
 
     /**
